@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+APP_DIR="/opt/cv2"
+PORT="${PORT:-8080}"
+
+if [[ ! -f "$APP_DIR/index.html" ]]; then
+  echo "Error: $APP_DIR/index.html not found. Run installer first." >&2
+  exit 1
+fi
+
+echo "Serving CV2 app from $APP_DIR on http://0.0.0.0:$PORT"
+exec python3 -m http.server "$PORT" --directory "$APP_DIR"
